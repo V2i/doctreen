@@ -10,5 +10,4 @@ COPY . /server
 
 EXPOSE 5000
 
-CMD ["npm", "build"]
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

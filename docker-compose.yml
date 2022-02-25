@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  client:
+    image: doctreen_client
+    stdin_open: true
+    ports:
+    - "3000:3000"
+    networks:
+      - doctreen
+
+  server:
+    image: doctreen-server
+    ports:
+    - "5000:5000"
+    depends_on:
+      - doctreen-database
+    networks:
+      - doctreen
+
+  database:
+    image: mongo:3.6.19-xenial
+    ports:
+    - "27017:27017"
+    networks:
+      - doctreen
+    volumes:
+    - mongo-data:/data/db
+
+networks:
+  doctreen:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
