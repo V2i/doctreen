@@ -7,7 +7,7 @@
 3. ```make build```
 4. ```make run```
 
-You are good to go.
+You are good to go!
 * URL of the front: http://localhost:3000/
 * URL of the back: http://localhost:5000/
 
@@ -15,15 +15,15 @@ You are good to go.
 
 ### User
 
-id: user
-password: user
+* id: user
+* password: user
 
 ### Moderator
 
-id: mod
-password: mod
+* id: mod
+* password: mod
 
 ### Admin
 
-id: admin
-password: admin
+* id: admin
+* password: admin
