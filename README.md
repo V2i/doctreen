@@ -6,6 +6,7 @@
 2. go at the root of the repo
 3. ```make build```
 4. ```make run```
+5. To stop the dev environment run: ```make stop```
 
 You are good to go!
 * URL of the front: http://localhost:3000/
