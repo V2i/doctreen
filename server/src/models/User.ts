@@ -6,6 +6,7 @@ interface IUser {
     isAdmin?: boolean;
     isModerator?: boolean;
     userDescription?: string;
+    isReported?: boolean;
 }
 
 interface userDoc extends Document {
@@ -14,6 +15,7 @@ interface userDoc extends Document {
     isAdmin?: boolean;
     isModerator?: boolean;
     userDescription?: string;
+    isReported?: boolean;
 }
 
 interface userModelInterface extends Model<userDoc> {
@@ -46,6 +48,12 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
+
+    isReported: {
+        type: Boolean,
+        default: false,
+    },
+
 });
 
 const User = model<any, userModelInterface>('User', userSchema);
