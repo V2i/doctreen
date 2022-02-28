@@ -1,8 +1,8 @@
-import {Schema, model, Model, Document} from 'mongoose';
+import {Schema, Model, model, Document} from 'mongoose';
 
-interface IUser {
+export interface IUser extends Document{
     userMail: string;
-    userPassword: string;
+    userHashedPassword: string;
     userName: string
     isAdmin?: boolean;
     isModerator?: boolean;
@@ -11,29 +11,15 @@ interface IUser {
     userLiked?: [string];
 }
 
-interface userDoc extends Document {
-    userMail: string;
-    userPassword: string;
-    userName: string
-    isAdmin?: boolean;
-    isModerator?: boolean;
-    userDescription?: string;
-    isReported?: boolean;
-    userLiked?: [string];
-}
-
-interface userModelInterface extends Model<userDoc> {
-    build(attr: IUser): userDoc;
-}
-
-const userSchema = new Schema({
+const userSchema = new Schema<IUser>({
 
     userMail: {
         type: String,
         required: true,
+        unique: true,
     },
 
-    userPassword: {
+    userHashedPassword: {
         type : String,
         required: true,
     },
@@ -70,10 +56,6 @@ const userSchema = new Schema({
 
 });
 
-const User = model<any, userModelInterface>('User', userSchema);
-
-userSchema.statics.build = (attr: IUser) => {
-    return new User(attr);
-}
+const User = model<IUser>('User', userSchema);
 
 export { User }
