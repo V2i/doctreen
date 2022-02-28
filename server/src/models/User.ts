@@ -3,19 +3,23 @@ import {Schema, model, Model, Document} from 'mongoose';
 interface IUser {
     userMail: string;
     userPassword: string;
+    userName: string
     isAdmin?: boolean;
     isModerator?: boolean;
     userDescription?: string;
     isReported?: boolean;
+    userLiked?: [string];
 }
 
 interface userDoc extends Document {
     userMail: string;
     userPassword: string;
+    userName: string
     isAdmin?: boolean;
     isModerator?: boolean;
     userDescription?: string;
     isReported?: boolean;
+    userLiked?: [string];
 }
 
 interface userModelInterface extends Model<userDoc> {
@@ -30,6 +34,11 @@ const userSchema = new Schema({
     },
 
     userPassword: {
+        type : String,
+        required: true,
+    },
+
+    userName: {
         type : String,
         required: true,
     },
@@ -51,6 +60,11 @@ const userSchema = new Schema({
 
     isReported: {
         type: Boolean,
+        default: false,
+    },
+
+    userLiked: {
+        type: [String],
         default: false,
     },
 

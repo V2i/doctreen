@@ -8,7 +8,7 @@ const router = Router();
 // Register
 router.post('/register', async (req: Request, res: Response) => {
 
-    const { userMail, userPassword } = req.body;
+    const { userMail, userPassword, userName } = req.body;
 
     // Check if user already exists
     try {
@@ -22,7 +22,7 @@ router.post('/register', async (req: Request, res: Response) => {
     bcrypt.hash(userPassword, 10, async (err, userPassword) => {
 
         // Create a new user
-        const user = User.build({userMail, userPassword})
+        const user = User.build({userMail, userPassword, userName})
 
         // Save it to DB
         try {

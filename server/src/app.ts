@@ -1,13 +1,17 @@
 import express, {Application, Request, Response} from 'express';
 import { json } from 'body-parser';
 import mongoose from "mongoose";
+import cors from "cors";
+import helmet from "helmet";
 import {userRouter} from "./routes/user";
-import { authRouter } from "./routes/auth";
+import {authRouter} from "./routes/auth";
 import {adminRouter} from "./routes/admin";
 import {modsRouter} from "./routes/moderator";
 
 const app: Application = express();
 app.use(json());
+app.use(helmet());
+app.use(cors());
 app.use(authRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
