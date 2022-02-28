@@ -1,10 +1,40 @@
-import express, {Application, Request, Response, NextFunction, Router} from 'express';
+import { Request, Response, NextFunction, Router} from 'express';
 import {User} from "../models/User";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
+/* POST user */
+router.post('/', async (req: Request, res: Response) => {
+
+    const { userMail, userPassword, userName, isAdmin, isModerator, userDescription, isReported, userLiked} = req.body;
+
+    //checking if user already exist
+    try {
+        const emailExist = await User.findOne({userMail: userMail});
+        if (emailExist) return res.status(400).send('Email already exists.');
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
+    //hash the password
+    const salt = await bcrypt.genSalt(10);
+    const userHashedPassword = await bcrypt.hash(userPassword, salt);
+
+    // Create a new user
+    const newUser = new User({userMail, userHashedPassword, userName, isAdmin, isModerator, userDescription, isReported, userLiked})
+
+    //posting to db
+    try {
+        const user = await newUser.save();
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 /* PATCH  user by id */
-router.patch('/mod/:id', async (req: Request, res: Response) => {
+router.patch('/:id', async (req: Request, res: Response) => {
 
     try{
         const user = await User.findById(req.params.id);
@@ -15,7 +45,7 @@ router.patch('/mod/:id', async (req: Request, res: Response) => {
 
         await User.updateOne({_id: req.params.id}, {$set: {
                 userMail: user.userMail,
-                userPassword: user.userPassword,
+                userHashedPassword: user.userHashedPassword,
                 userName: req.body.userName,
                 isAdmin: user.isAdmin,
                 isModerator: req.body.isModerator,

@@ -31,24 +31,25 @@ router.patch('/:id', async (req: Request, res: Response) => {
             return res.status(403);
         }
 
-        const validPassword = await bcrypt.compare(req.body.userPassword, user.userPassword);
+        const validPassword = await bcrypt.compare(req.body.userPassword, user.userHashedPassword);
         if (!validPassword) {
-            bcrypt.hash(req.body.userPassword, 10, async (err, userPassword) => {
-                await User.updateOne({_id: req.params.id}, {$set: {
-                        userMail: user.userMail,
-                        userPassword: userPassword,
-                        userName: req.body.userName,
-                        isAdmin: user.isAdmin,
-                        isModerator: user.isModerator,
-                        userDescription: req.body.userDescription,
-                        isReported: user.isReported,
-                        userLiked: req.body.userLiked,
-                    }})
-            });
+            //hash the password
+            const salt = await bcrypt.genSalt(10);
+            const userHashedPassword = await bcrypt.hash(req.body.userPassword, salt);
+            await User.updateOne({_id: req.params.id}, {$set: {
+                    userMail: user.userMail,
+                    userHashedPassword: userHashedPassword,
+                    userName: req.body.userName,
+                    isAdmin: user.isAdmin,
+                    isModerator: user.isModerator,
+                    userDescription: req.body.userDescription,
+                    isReported: user.isReported,
+                    userLiked: req.body.userLiked,
+                }})
         } else {
             await User.updateOne({_id: req.params.id}, {$set: {
                     userMail: user.userMail,
-                    userPassword: req.body.userPassword,
+                    userHashedPassword: req.body.userPassword,
                     userName: req.body.userName,
                     isAdmin: user.isAdmin,
                     isModerator: user.isModerator,

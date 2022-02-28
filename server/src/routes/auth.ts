@@ -18,20 +18,20 @@ router.post('/register', async (req: Request, res: Response) => {
         res.status(400).send(err);
     }
 
-    // Hash the password
-    bcrypt.hash(userPassword, 10, async (err, userPassword) => {
+    //hash the password
+    const salt = await bcrypt.genSalt(10);
+    const userHashedPassword = await bcrypt.hash(userPassword, salt);
 
-        // Create a new user
-        const user = User.build({userMail, userPassword, userName})
+    // Create a new user
+    const user = new User({userMail, userHashedPassword, userName})
 
-        // Save it to DB
-        try {
-            await user.save();
-            res.status(201).json(user);
-        } catch (err) {
-            res.status(500).send(err);
-        }
-    });
+    // Save it to DB
+    try {
+        await user.save();
+        res.status(201).json(user);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 
 });
 
@@ -45,7 +45,7 @@ router.post('/login', async (req: Request, res: Response) => {
     if (!user) return res.status(400).send('Email or password is wrong.');
 
     //if the passwords are matching
-    const validPassword = await bcrypt.compare(userPassword, user.userPassword);
+    const validPassword = await bcrypt.compare(userPassword, user.userHashedPassword);
     if (!validPassword) return res.status(400).send('Email or password is wrong.');
 
     //creation of the jwt

@@ -4,7 +4,7 @@ import {User} from "../models/User";
 const router = Router();
 
 /* PATCH  user by id */
-router.patch('/mod/:id', async (req: Request, res: Response) => {
+router.patch('/:id', async (req: Request, res: Response) => {
 
     try{
         const user = await User.findById(req.params.id);
@@ -15,7 +15,7 @@ router.patch('/mod/:id', async (req: Request, res: Response) => {
 
         await User.updateOne({_id: req.params.id}, {$set: {
                 userMail: user.userMail,
-                userPassword: user.userPassword,
+                userHashedPassword: user.userHashedPassword,
                 userName: req.body.userName,
                 isAdmin: user.isAdmin,
                 isModerator: user.isModerator,
