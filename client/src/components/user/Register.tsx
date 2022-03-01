@@ -4,10 +4,11 @@ import {Button, Stack} from "@mui/material";
 import {ChangeEvent, FC, useState} from "react";
 import {register} from "../../services/auth.service";
 import {IState} from "../../App";
-
+import { useHistory } from "react-router-dom"
 
 const Register: FC = () => {
 
+    const history = useHistory();
     const [user, setUser] = useState<IState['user']>({
         userMail: "",
         mailCheck: "",
@@ -28,6 +29,7 @@ const Register: FC = () => {
     const handleRegister = (): void => {
         if(user.userName === "" || user.userPassword === "" || user.userMail === "" || user.mailCheck === "" || user.userMail !== user.mailCheck) return
         register(user.userMail, user.userPassword, user.userName);
+        history.push("/login");
     };
 
     return (

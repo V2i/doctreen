@@ -11,10 +11,11 @@ import {getCurrentUser} from "./services/auth.service";
 
 export interface IState {
     user: {
-        userMail: string,
+        _id?: string,
+        userMail?: string,
         mailCheck?: string,
         userName: string,
-        userPassword: string,
+        userPassword?: string,
         isAdmin?: boolean,
         isModerator?: boolean,
         userDescription?: string,
@@ -26,11 +27,17 @@ export interface IState {
 
 function App() {
 
+    const userCookie = getCurrentUser();
     const [isLogged, setIsLogged] = useState<boolean>(false);
-    const user = getCurrentUser();
+    const [user, setUser] = useState<IState['user']>({
+        userName: "guest"
+    });
 
     useEffect(() => {
-        if (user) setIsLogged(true)
+        if (userCookie) {
+            setIsLogged(true);
+            setUser(userCookie.userInfo);
+        }
     }, []);
 
   return (
@@ -44,7 +51,9 @@ function App() {
                     <Login setIsLogged={setIsLogged}/>
                 </Route>
                 <Route path={"/register"} exact component={Register} />
-                <Route path={"/user"} exact component={User} />
+                <Route path={"/user"} exact >
+                    <User user={user} setUser={setUser} />
+                </Route>
                 <Route path={"/users"} exact component={UserList} />
 
                 <Route path={"/"} exact component={Dashboard} />

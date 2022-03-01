@@ -133,7 +133,7 @@ const ResponsiveAppBar: FC<IProps> = ({ isLogged , setIsLogged}) => {
                             <MenuItem key="rightMenu" onClick={handleCloseUserMenu}>
                                 {isLogged ?
                                     <Stack direction="column" spacing={1}>
-                                        <Button component={Link} to="/profile">Profile</Button>
+                                        <Button component={Link} to="/user">Profile</Button>
                                         <Button component={Link} to="/" onClick={handleLogOut}>Logout</Button>
                                     </Stack>
                                     :

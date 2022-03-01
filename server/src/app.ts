@@ -25,7 +25,8 @@ app.listen(5000, () => console.log('Server Running on port 5000'));
 
 /* Connection to DB */
 mongoose.connect(
-    "mongodb://doctreen-database:27017/",
+    //"mongodb://doctreen-database:27017/",
+    "mongodb+srv://username:YzguV9qdy4wr48b1@cluster.fwrdi.mongodb.net/database?retryWrites=true&w=majority",
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
