@@ -5,7 +5,7 @@ const Dashboard = () => {
         <>
             <h1>Doctreen</h1>
             <h2>Welcome</h2>
-            <p>Test for Doctreen</p>
+            <p>Please Register to see other account!</p>
         </>
     );
 }

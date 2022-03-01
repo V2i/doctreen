@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "621e6128a37fad290c9c53b4"
+  },
+  "isAdmin": false,
+  "isModerator": true,
+  "isReported": false,
+  "isBanned": false,
+  "userLiked": [],
+  "userMail": "mod",
+  "userHashedPassword": "$2a$10$78fQi2H1zLeqO0OrUY3MTeyijP2lxLujo74oJZ0cL2Gig/zj0S9YG",
+  "userName": "José45",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "621e9bd504f71427b00144ef"
+  },
+  "isAdmin": false,
+  "isModerator": false,
+  "isReported": false,
+  "isBanned": false,
+  "userLiked": [],
+  "userMail": "admin",
+  "userHashedPassword": "$2a$10$FL80gCIavGsAkVfAgSEunODAngzT6uOTcDVpfwFE/uBy0jlNcnv16",
+  "userName": "Roger34",
+  "userDescription": "User is an Admin",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "621e9c0204f71427b0014a5b"
+  },
+  "isAdmin": false,
+  "isModerator": false,
+  "isReported": false,
+  "isBanned": false,
+  "userLiked": [],
+  "userMail": "user",
+  "userHashedPassword": "$2a$10$OvREdSUk09S7u0A9/9zo5e3h2otcVSXY2aG.JHaxr2ZUIv1ovrp3m",
+  "userName": "Timmy",
+  "userDescription": "Hey!",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "621e9c2d04f71427b0014f37"
+  },
+  "isAdmin": false,
+  "isModerator": false,
+  "isReported": false,
+  "isBanned": false,
+  "userLiked": [],
+  "userMail": "mail",
+  "userHashedPassword": "$2a$10$5fl7hCF0gT119RD1CiXkZ.fR0hLzjueBrYn9J0uZFrKPDNr.yc8SC",
+  "userName": "JustAGuy",
+  "userDescription": "",
+  "__v": 0
+}]

@@ -12,10 +12,10 @@ import {getCurrentUser} from "./services/auth.service";
 export interface IState {
     user: {
         _id?: string,
-        userMail?: string,
+        userMail: string,
         mailCheck?: string,
         userName: string,
-        userPassword?: string,
+        userHashedPassword: string,
         isAdmin?: boolean,
         isModerator?: boolean,
         userDescription?: string,
@@ -23,6 +23,19 @@ export interface IState {
         isBanned?: boolean,
         userLiked?: string[],
     },
+    users: {
+        _id?: string,
+        userMail: string,
+        mailCheck?: string,
+        userName: string,
+        userHashedPassword: string,
+        isAdmin?: boolean,
+        isModerator?: boolean,
+        userDescription?: string,
+        isReported?: boolean,
+        isBanned?: boolean,
+        userLiked?: string[],
+    }[],
 }
 
 function App() {
@@ -30,7 +43,9 @@ function App() {
     const userCookie = getCurrentUser();
     const [isLogged, setIsLogged] = useState<boolean>(false);
     const [user, setUser] = useState<IState['user']>({
-        userName: "guest"
+        userMail: "",
+        userName: "guest",
+        userHashedPassword: ""
     });
 
     useEffect(() => {
@@ -38,7 +53,7 @@ function App() {
             setIsLogged(true);
             setUser(userCookie.userInfo);
         }
-    }, []);
+    }, [userCookie]);
 
   return (
     <div>
@@ -54,7 +69,9 @@ function App() {
                 <Route path={"/user"} exact >
                     <User user={user} setUser={setUser} />
                 </Route>
-                <Route path={"/users"} exact component={UserList} />
+                <Route path={"/users"} exact >
+                    <UserList />
+                </Route>
 
                 <Route path={"/"} exact component={Dashboard} />
                 <Redirect to={"/"}/>

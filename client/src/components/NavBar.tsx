@@ -15,6 +15,7 @@ import {Link} from 'react-router-dom';
 import {Stack} from "@mui/material";
 import {FC} from "react";
 import {logout} from "../services/auth.service";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 interface IProps {
     isLogged: boolean,
@@ -90,7 +91,11 @@ const ResponsiveAppBar: FC<IProps> = ({ isLogged , setIsLogged}) => {
                             <MenuItem key="leftMenu" onClick={handleCloseNavMenu}>
                                 <Stack direction="column" spacing={1}>
                                     <Button component={Link} to="/">Dashboard</Button>
-                                    <Button component={Link} to="/users">Users</Button>
+                                    {isLogged ?
+                                        <Button component={Link} to="/users">Users</Button>
+                                        :
+                                        <></>
+                                    }
                                 </Stack>
                             </MenuItem>
                         </Menu>
@@ -111,7 +116,7 @@ const ResponsiveAppBar: FC<IProps> = ({ isLogged , setIsLogged}) => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <AccountCircleIcon />
                             </IconButton>
                         </Tooltip>
                         <Menu

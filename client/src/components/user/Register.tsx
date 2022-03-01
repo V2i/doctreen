@@ -13,7 +13,7 @@ const Register: FC = () => {
         userMail: "",
         mailCheck: "",
         userName: "",
-        userPassword: ""
+        userHashedPassword: ""
     });
 
     const handleInputsChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -27,8 +27,8 @@ const Register: FC = () => {
     };
 
     const handleRegister = (): void => {
-        if(user.userName === "" || user.userPassword === "" || user.userMail === "" || user.mailCheck === "" || user.userMail !== user.mailCheck) return
-        register(user.userMail, user.userPassword, user.userName);
+        if(user.userName === "" || user.userHashedPassword === "" || user.userMail === "" || user.mailCheck === "" || user.userMail !== user.mailCheck) return
+        register(user.userMail, user.userHashedPassword, user.userName);
         history.push("/login");
     };
 
@@ -39,7 +39,7 @@ const Register: FC = () => {
                 <TextField name="userMail" label="Email" variant="outlined" required value={user.userMail} onChange={handleInputsChange}/>
                 <TextField name="mailCheck" label="Check Email" variant="outlined" required value={user.mailCheck} onChange={handleInputsChange}/>
                 <TextField name="userName" label="User Name" variant="outlined" required value={user.userName} onChange={handleInputsChange}/>
-                <TextField name="userPassword" label="Password" variant="outlined" required type="password" value={user.userPassword} onChange={handleInputsChange}/>
+                <TextField name="userPassword" label="Password" variant="outlined" required type="password" value={user.userHashedPassword} onChange={handleInputsChange}/>
                 <Button variant="outlined" onClick={handleRegister}>Register</Button>
             </Stack>
         </>

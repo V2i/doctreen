@@ -2,16 +2,12 @@ import axios from "axios";
 import API_URL from "./API.URL";
 import {IState} from "../App";
 
-interface UserService {
-
-}
-
 export const getUsers = async () => {
 
     try {
-        const res = await axios.get(`${API_URL}/user/list`);
+        let res = await axios.get(`${API_URL}/user/list`);
 
-        return res.data;
+        return await res;
 
     } catch (e) {
         console.log(e);
@@ -19,12 +15,22 @@ export const getUsers = async () => {
 
 }
 
-export const UpdateUser = async (user: IState["user"]) => {
+export const updateUser = async (user: IState["user"]) => {
 
     try {
         const res = await axios.patch(`${API_URL}/user/${user._id}`, user);
 
-        return res.data;
+        localStorage.setItem("user", JSON.stringify(res.data));
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const reportUser = async (id: string) => {
+
+    try {
+        const res = await axios.patch(`${API_URL}/user/${id}`, {isReported: true});
 
     } catch (e) {
         console.log(e);
