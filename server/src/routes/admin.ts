@@ -7,7 +7,7 @@ const router = Router();
 /* POST user */
 router.post('/', async (req: Request, res: Response) => {
 
-    const { userMail, userPassword, userName, isAdmin, isModerator, userDescription, isReported, userLiked} = req.body;
+    const { userMail, userPassword, userName, isAdmin, isModerator, userDescription, isReported, isBanned, userLiked} = req.body;
 
     //checking if user already exist
     try {
@@ -22,7 +22,7 @@ router.post('/', async (req: Request, res: Response) => {
     const userHashedPassword = await bcrypt.hash(userPassword, salt);
 
     // Create a new user
-    const newUser = new User({userMail, userHashedPassword, userName, isAdmin, isModerator, userDescription, isReported, userLiked})
+    const newUser = new User({userMail, userHashedPassword, userName, isAdmin, isModerator, userDescription, isReported, isBanned, userLiked})
 
     //posting to db
     try {
@@ -51,6 +51,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
                 isModerator: req.body.isModerator,
                 userDescription: req.body.userDescription,
                 isReported: req.body.isReported,
+                isBanned: req.body.isBanned,
                 userLiked: user.userLiked,
             }})
 

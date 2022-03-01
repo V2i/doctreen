@@ -44,6 +44,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
                     isModerator: user.isModerator,
                     userDescription: req.body.userDescription,
                     isReported: user.isReported,
+                    isBanned: user.isBanned,
                     userLiked: req.body.userLiked,
                 }})
         } else {
@@ -55,6 +56,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
                     isModerator: user.isModerator,
                     userDescription: req.body.userDescription,
                     isReported: user.isReported,
+                    isBanned: user.isBanned,
                     userLiked: req.body.userLiked,
                 }})
         }

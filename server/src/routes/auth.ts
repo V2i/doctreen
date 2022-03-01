@@ -12,7 +12,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
     // Check if user already exists
     try {
-        const emailExist = await User.findOne(userMail);
+        const emailExist = await User.findOne({userMail: userMail});
         if (emailExist) return res.status(400).send('Email already exists !');
     } catch (err) {
         res.status(400).send(err);
@@ -41,7 +41,7 @@ router.post('/login', async (req: Request, res: Response) => {
     const { userMail, userPassword } = req.body;
 
     //checking if email exists
-    const user = await User.findOne(userMail);
+    const user = await User.findOne({userMail: userMail});
     if (!user) return res.status(400).send('Email or password is wrong.');
 
     //if the passwords are matching

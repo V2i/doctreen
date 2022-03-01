@@ -1,4 +1,4 @@
-import {Schema, Model, model, Document} from 'mongoose';
+import {Schema, model, Document} from 'mongoose';
 
 export interface IUser extends Document{
     userMail: string;
@@ -8,6 +8,7 @@ export interface IUser extends Document{
     isModerator?: boolean;
     userDescription?: string;
     isReported?: boolean;
+    isBanned?: boolean;
     userLiked?: [string];
 }
 
@@ -45,6 +46,11 @@ const userSchema = new Schema<IUser>({
     },
 
     isReported: {
+        type: Boolean,
+        default: false,
+    },
+
+    isBanned: {
         type: Boolean,
         default: false,
     },

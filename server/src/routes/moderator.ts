@@ -21,6 +21,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
                 isModerator: user.isModerator,
                 userDescription: req.body.userDescription,
                 isReported: req.body.isReported,
+                isBanned: req.body.isReported,
                 userLiked: user.userLiked,
             }})
 
