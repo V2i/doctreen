@@ -6,9 +6,9 @@ export const login = async (userMail: string, userPassword: string) => {
     try {
         const res = await axios.post(`${API_URL}/login`, { userMail, userPassword });
 
-        localStorage.setItem("user", JSON.stringify(res.data));
-
-        return res.data;
+        if(!(res.data.userInfo.isBanned)) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+        }
 
     } catch (e) {
         console.log(e);
@@ -16,8 +16,8 @@ export const login = async (userMail: string, userPassword: string) => {
 
 };
 
-export const logout = async () => {
-    await localStorage.removeItem("user");
+export const logout = () => {
+    localStorage.removeItem("user");
 };
 
 export const register = async (userMail: string, userPassword: string, userName: string) => {
@@ -33,10 +33,10 @@ export const register = async (userMail: string, userPassword: string, userName:
 
 };
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = () => {
 
     try {
-        const user = await localStorage.getItem("user");
+        const user = localStorage.getItem("user");
 
         if(user) return JSON.parse(user);
 

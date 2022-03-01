@@ -13,8 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
 import {Stack} from "@mui/material";
+import {FC} from "react";
+import {logout} from "../services/auth.service";
 
-const ResponsiveAppBar = () => {
+interface IProps {
+    isLogged: boolean,
+    setIsLogged: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+}
+
+const ResponsiveAppBar: FC<IProps> = ({ isLogged , setIsLogged}) => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -32,6 +39,11 @@ const ResponsiveAppBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogOut = () => {
+        logout();
+        setIsLogged(false);
+    }
 
     return (
         <AppBar position="static">
@@ -119,10 +131,18 @@ const ResponsiveAppBar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem key="rightMenu" onClick={handleCloseUserMenu}>
-                                <Stack direction="column" spacing={1}>
-                                    <Button component={Link} to="/login">Login</Button>
-                                    <Button component={Link} to="/register">Register</Button>
-                                </Stack>
+                                {isLogged ?
+                                    <Stack direction="column" spacing={1}>
+                                        <Button component={Link} to="/profile">Profile</Button>
+                                        <Button component={Link} to="/" onClick={handleLogOut}>Logout</Button>
+                                    </Stack>
+                                    :
+                                    <Stack direction="column" spacing={1}>
+                                        <Button component={Link} to="/login">Login</Button>
+                                        <Button component={Link} to="/register">Register</Button>
+                                    </Stack>
+                                }
+
                             </MenuItem>
                         </Menu>
                     </Box>
