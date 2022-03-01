@@ -57,7 +57,7 @@ const userSchema = new Schema<IUser>({
 
     userLiked: {
         type: [String],
-        default: false,
+        default: [],
     },
 
 });
